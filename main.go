@@ -58,7 +58,7 @@ func run() error {
 				fmt.Fprintf(w, "Not found")
 				return
 			}
-			
+
 			// Store page view.
 			if _, err := db.Exec(`INSERT INTO page_views (timestamp) VALUES (?);`, time.Now().Format(time.RFC3339)); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -73,7 +73,7 @@ func run() error {
 			}
 
 			// Print total page views.
-			fmt.Fprintf(w, "This server has been visited %d times.\n", n)
+			fmt.Fprintf(w, "This server has been visited %d times.\nThe counter is stored locally in SQLite.\nLitestream replicates the database regularly to a Raspberry Pi 3 running at home that is reachable via a private Tailscale network.", n)
 		}),
 	)
 
